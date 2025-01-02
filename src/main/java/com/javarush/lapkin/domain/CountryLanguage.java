@@ -5,31 +5,29 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "country_language", schema = "world")
+@Table(schema = "world", name = "country_language")
 public class CountryLanguage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "country_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "country_id")
     private Country country;
 
-    @Column(name = "language", nullable = false, length = 30)
     private String language;
 
-    @Column(name = "is_official", nullable = false)
-    private Boolean isOfficial = false;
+    @Column(name = "is_official", columnDefinition = "BIT")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean isOfficial;
 
-    @Column(name = "percentage", nullable = false, precision = 4, scale = 1)
     private BigDecimal percentage;
-
 }
