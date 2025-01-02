@@ -58,7 +58,7 @@ public class Country {
     @JoinColumn(name = "capital")
     private City city;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Set<CountryLanguage> languages;
 
